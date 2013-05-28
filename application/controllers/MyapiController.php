@@ -20,7 +20,10 @@ class myapiController extends Zend_Controller_Action
         $client->setUri('http://local.myapi/api/Page/');
         $client->setParameterPost($post);
         $response = $client->request('POST');
-        var_dump($response);exit;
+        //var_dump($response);exit;
+        $status = $response->getStatus();
+        var_dump($status);
+        echo $response->getBody();exit;
     }
 }
 

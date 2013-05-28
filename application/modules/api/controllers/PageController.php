@@ -33,8 +33,10 @@ class Api_PageController extends Zend_Controller_Action
             'omschrijving' => $omschrijving,
         );
         $pageModel->insert($data);
-        //$this->getResponse()
-        //        ->appendBody('postAction() return');
+
+        $this->getResponse()
+                ->setHttpResponseCode(401)
+                ->appendBody('postAction() return');
         
     }
     
