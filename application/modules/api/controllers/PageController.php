@@ -24,20 +24,25 @@ class Api_PageController extends Zend_Controller_Action
     
     public function postAction()
     {
-        $titel = $this->_getParam('titel');
-        $omschrijving = $this->_getParam('omschrijving');
-        
-        $pageModel = new Application_Model_Page();
-        $data = array(
-            'titel' => $titel,
-            'omschrijving' => $omschrijving,
-        );
-        $pageModel->insert($data);
+        if (null === $this->_getParam('titel') || null === $this->_getParam('omschrijving')) {
+            $this->getResponse()
+                    ->setHttpResponseCode(401)
+                    ->appendBody('postAction() error return');
+        } else {
+            $titel = $this->_getParam('titel');
+            $omschrijving = $this->_getParam('omschrijving');
 
-        $this->getResponse()
-                ->setHttpResponseCode(401)
-                ->appendBody('postAction() return');
-        
+            $pageModel = new Application_Model_Page();
+            $data = array(
+                'titel' => $titel,
+                'omschrijving' => $omschrijving,
+            );
+            $pageModel->insert($data);
+
+            $this->getResponse()
+                    ->setHttpResponseCode(200)
+                    ->appendBody('postAction() return');
+        }
     }
     
     public function putAction()
